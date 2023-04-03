@@ -12,20 +12,13 @@
 # Set up variables
 # -------------------------------
 
-SITE_NAME=$(wp option get blogname)
-SITE_HOST=$(wp --skip-plugins --skip-themes option get home | grep -oP '(?<=//)[^/]+' | sed 's/\r//')
-
-if [[ $(hostname) == "localhost" ]]; then
-	SRV_HOSTNAME="$SITE_HOST"
-else
-	SRV_HOSTNAME=$(hostname)
-fi
+SITE_NAME=$(wp --skip-plugins --skip-themes option get blogname 2>/dev/null)
 
 # -------------------------------
 # Set up prompt
 # -------------------------------
 
-export PS1="\[\e[36m\]\u\[\e[37m\]@\[\e[32m\]$SRV_HOSTNAME:\[\e[33m\]\w\[\e[37m\]\$ "
+export PS1="\[\e[36m\]\u\[\e[37m\]@\[\e[32m\]$DOMAIN_NAME:\[\e[33m\]\w\[\e[37m\]\$ "
 export PS2="| => "
 
 # -------------------------------
