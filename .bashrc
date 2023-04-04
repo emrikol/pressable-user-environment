@@ -52,3 +52,15 @@ alias logs='tail -F /tmp/php-errors'
 
 # LS settings
 alias ls="ls --color=auto"
+
+# -------------------------------
+# Custom Functions
+# -------------------------------
+function update_bashrc() {
+	if curl -s -f -o ~/.bashrc https://raw.githubusercontent.com/emrikol/pressable-user-environment/main/.bashrc; then
+		source ~/.bashrc
+		echo "Updated .bashrc successfully"
+	else
+		echo "Failed to download .bashrc from GitHub"
+	fi
+}
