@@ -13,6 +13,7 @@
 # -------------------------------
 
 SITE_NAME=$(wp --skip-plugins --skip-themes option get blogname 2>/dev/null)
+EDITOR=nano
 
 # -------------------------------
 # Set up prompt
@@ -36,17 +37,6 @@ echo -ne "\033]0;VIP: $SITE_NAME\007"
 # Aliases
 # -------------------------------
 
-# ack isn't installed, fall back to grep.
-function ack() {
-	if which ack >/dev/null 2>&1; then
-		# run the original ack command
-		command ack "$@"
-	else
-		# run grep instead
-		grep --color -rHn "$@"
-	fi
-}
-
 # Tail PHP logs
 alias logs='tail -F /tmp/php-errors'
 
@@ -56,11 +46,24 @@ alias ls="ls --color=auto"
 # -------------------------------
 # Custom Functions
 # -------------------------------
+
+# Update bashrc from GitHub!
 function update_bashrc() {
 	if curl -s -f -o ~/.bashrc https://raw.githubusercontent.com/emrikol/pressable-user-environment/main/.bashrc; then
 		source ~/.bashrc
 		echo "Updated .bashrc successfully"
 	else
 		echo "Failed to download .bashrc from GitHub"
+	fi
+}
+
+# ack isn't installed, fall back to grep.
+function ack() {
+	if which ack >/dev/null 2>&1; then
+		# run the original ack command
+		command ack "$@"
+	else
+		# run grep instead
+		grep --color -rHn "$@"
 	fi
 }
