@@ -13,7 +13,7 @@
 # -------------------------------
 
 SITE_NAME=$(wp --skip-plugins --skip-themes option get blogname 2>/dev/null)
-EDITOR=nano
+export EDITOR=nano
 
 # -------------------------------
 # Set up prompt
@@ -27,11 +27,11 @@ export PS2="| => "
 # -------------------------------
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash" || true
-source ~/.iterm2_shell_integration.bash
+source "${HOME}/.iterm2_shell_integration.bash"
 
 # Adds hostname title and badge to iTerm2
-printf "\e]1337;SetBadgeFormat=%s\a" $(echo -n "Pressable: $SITE_NAME" | base64)
-echo -ne "\033]0;VIP: $SITE_NAME\007"
+printf "\e]1337;SetBadgeFormat=%s\a" "$(echo -n Pressable: "$SITE_NAME" | base64)"
+echo -ne "\033]0;Pressable: $SITE_NAME\007"
 
 # -------------------------------
 # Aliases
@@ -50,7 +50,7 @@ alias ls="ls --color=auto"
 # Update bashrc from GitHub!
 function update_bashrc() {
 	if curl -s -f -o ~/.bashrc https://raw.githubusercontent.com/emrikol/pressable-user-environment/main/.bashrc; then
-		source ~/.bashrc
+		source "${HOME}/.bashrc"
 		echo "Updated .bashrc successfully"
 	else
 		echo "Failed to download .bashrc from GitHub"
